@@ -1,0 +1,2 @@
+ #!/bin/bash
+     ls -A1p | sed -e 's/\(.*\)\/$/\1\/,/' | LC_ALL=C sort -df | tr '\n' ','; echo
