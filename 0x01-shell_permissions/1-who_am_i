@@ -1,0 +1,2 @@
+#!/bin/bash
+_user="$(id -u -n)" _uid="$(id -ui)"
