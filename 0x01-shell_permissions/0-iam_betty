@@ -1,2 +1,2 @@
 #!/bin/bash
-su betty -c " wc -l file"
+su betty -c "su betty"
