@@ -1,4 +1,4 @@
 #!/bin/bash
-echo "Groups for user $(whoami): $(groups $(whoami))"
+echo "$(groups $(whoami)
 
 
