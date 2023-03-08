@@ -1,1 +1,1 @@
-#shell scripting lecture
+shell basics README
