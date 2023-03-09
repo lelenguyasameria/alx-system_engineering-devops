@@ -1,1 +1,1 @@
-README file
+shell basics
