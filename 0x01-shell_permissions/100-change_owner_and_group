@@ -1,3 +1,2 @@
 #!/bin/bash
-OWNER="vincent" GROUP_OWNER="staff" chown -R $OWNER:$GROUP_OWNER *
-
+chown -R vincent:staff *
