@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod $mode hello
+chmod $(stat -c "%a" olleh) hello
