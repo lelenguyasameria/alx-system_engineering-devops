@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Get the list of active IPv4 IP addresses using 'ip' command
+ip_addresses=$(ip -4 addr | awk '/inet/ {print $2}' | cut -d'/' -f1)
+
+# Loop through each IP address and display it
+for ip in $ip_addresses; do
+    echo "$ip"
+done
+
