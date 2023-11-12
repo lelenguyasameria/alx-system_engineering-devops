@@ -1,19 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Displays listening ports. Includes listening sockets as well
+# + as the PID and name of the program to which each socket belongs.
 
-# Check if the script is run as root
-if [ "$(id -u)" != "0" ]; then
-    echo "This script must be run as root."
-    exit 1
-fi
-
-# Get the listening sockets with PID and program name
-netstat -tuln | awk '$6 == "LISTEN" {print $4}' | sed 's/.*://' | sort -n | uniq | while read -r port; do
-    pid=$(lsof -t -i :$port)
-    if [ -n "$pid" ]; then
-        program=$(ps -p $pid -o comm=)
-        echo "Port $port is being used by PID $pid ($program)"
-    else
-        echo "Port $port is not associated with any running program."
-    fi
-done
+netstat -l --program
 
