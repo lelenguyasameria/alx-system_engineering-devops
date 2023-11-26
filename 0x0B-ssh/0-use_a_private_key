@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Server details
+server_ip="your_server_ip_here"
+user="ubuntu"
+private_key="~/.ssh/school"
+
+# SSH connection using single-character flags
+ssh -i "~/.ssh/school" $ubuntu.
+
