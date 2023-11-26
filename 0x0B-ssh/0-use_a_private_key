@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Server details
-server_ip="your_server_ip_here"
+server_ip="52.86.0.171"
 user="ubuntu"
 private_key="~/.ssh/school"
 
