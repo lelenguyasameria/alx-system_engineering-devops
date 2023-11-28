@@ -1,19 +1,7 @@
 #!/usr/bin/env bash
 # Install Nginx and the init file have only a message
-# Update package list
-sudo apt-get update
-
-# Install Nginx
-sudo apt-get install -y nginx
-
-# Make sure Nginx is listening on port 80
-sudo sed -i 's/^\(listen\s\+\)80/\180/' /etc/nginx/sites-available/default
-
-# Restart Nginx without using systemctl
-sudo /etc/init.d/nginx restart
-
-# Create a simple HTML page with the content "Hello World!"
-echo "<html><head><title>Hello World!</title></head><body><h1>Hello World!</h1></body></html>" | sudo tee /var/www/html/index.html
-
-# Display a message indicating successful configuration
-echo "Nginx has been installed and configured. Access http://your-server-ip/ to see the 'Hello World!' page."
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install nginx -y
+sudo service nginx start
+echo "Hello World!" | tee /var/www/html/index.nginx-debian.html
