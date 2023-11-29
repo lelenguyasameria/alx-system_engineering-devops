@@ -1,10 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#connects to my school server
 
-# Server details
-server_ip="52.86.0.171"
-user="ubuntu"
-private_key="/root/.ssh/school"
-
-# SSH connection using single-character flags
-ssh -i "$private_key" $user@$server_ip
-
+ssh -1 ~/.ssh/school ubuntu@54.87.206.137
