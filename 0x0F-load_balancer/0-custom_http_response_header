@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 # Create a custom Nginx configuration file
-echo "add_header X-Served-By \$hostname;" | sudo tee /etc/nginx/sites-available/custom-header
+echo "add_header X-Served-By \$hostname;" | sudo tee /etc/nginx/sites-available/custom-header > /dev/null
 
 # Create a symbolic link to enable the custom configuration
 sudo ln -s /etc/nginx/sites-available/custom-header /etc/nginx/sites-enabled/
