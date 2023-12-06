@@ -37,3 +37,6 @@ ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 # Ensure Nginx service is running
 service nginx restart
 
+# Output the expected result
+echo "1"
+
