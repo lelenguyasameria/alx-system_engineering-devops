@@ -5,9 +5,9 @@
 apt-get update
 apt-get install -y haproxy
 
-# Define backend server hostnames
-web_01="[STUDENT_ID]-web-01"
-web_02="[STUDENT_ID]-web-02"
+# Define backend server hostnames with IP addresses
+web_01="54.87.206.137"
+web_02="100.25.199.247"
 
 # Configure HAProxy
 cat <<EOL > /etc/haproxy/haproxy.cfg
@@ -29,10 +29,13 @@ frontend http_front
 backend http_back
     mode http
     balance roundrobin
-    server $web_01 $web_01:80 check
-    server $web_02 $web_02:80 check
+    server web_01 $web_01:80 check
+    server web_02 $web_02:80 check
 EOL
 
 # Restart HAProxy service
-service haproxy restart
+systemctl restart haproxy
+
+# Output the required hostnames
+echo "[$web_01, $web_02]"
 
