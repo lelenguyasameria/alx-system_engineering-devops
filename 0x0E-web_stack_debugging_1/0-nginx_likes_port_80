@@ -19,3 +19,6 @@ if sudo nginx -t; then
     sudo service nginx reload
 fi
 
+# Ensure a new line at the end of the file
+echo >> /dev/null
+
