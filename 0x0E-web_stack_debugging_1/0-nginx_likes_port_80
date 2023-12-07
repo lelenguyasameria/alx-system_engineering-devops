@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Script: configure_nginx.sh
+# Description: Configures Nginx to listen on port 80 and ensures it's running
+# on Ubuntu 20.04 LTS.
+
+# Install necessary tools
+sudo apt-get update
+sudo apt-get install -y net-tools nginx
+
+# Check if Nginx is running and listening on port 80
+if ! sudo netstat -tulpn | grep -q ":80"; then
+    # If not, start/restart Nginx
+    sudo service nginx restart
+fi
+
+# Update Nginx configuration to listen on port 80
+sudo bash -c 'cat <<EOF > /etc/nginx/nginx.conf
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 768;
+    # multi_accept on;
+}
+
+http {
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name _;
+
+        # ... other configuration options ...
+
+        location / {
+            # ... other location settings ...
+        }
+    }
+
+    # ... other http settings ...
+}
+EOF'
+
+# Test Nginx configuration for syntax errors
+if sudo nginx -t; then
+    # If no syntax errors, reload Nginx
+    sudo service nginx reload
+fi
+
