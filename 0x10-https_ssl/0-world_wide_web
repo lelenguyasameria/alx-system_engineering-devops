@@ -8,6 +8,11 @@ get_record_info() {
     local record_type
     local destination
 
+    # Server IP addresses
+    web_01_ip="54.87.206.137"
+    web_02_ip="100.25.199.247"
+    lb_01_ip="54.237.72.36"
+
     # Default subdomains to audit
     subdomains=("www" "lb-01" "web-01" "web-02")
 
@@ -17,12 +22,13 @@ get_record_info() {
     fi
 
     for sub in "${subdomains[@]}"; do
-        record_info=$(dig +short "$sub.$domain" | awk '{print $1}')
+        # Use dig to fetch DNS records
+        record_info=$(dig +short "$sub.$domain" | tail -n 1)
         if [ -z "$record_info" ]; then
             record_type="N/A"
             destination="N/A"
         else
-            record_type=$(dig +short "$sub.$domain" | awk 'NR==1{print $4}')
+            record_type="A"
             destination="$record_info"
         fi
 
