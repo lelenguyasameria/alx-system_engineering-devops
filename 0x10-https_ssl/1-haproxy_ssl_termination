@@ -10,7 +10,7 @@ sudo apt-get install certbot -y
 sudo certbot certonly --standalone -d www.codesammy.tech
 
 # Configure HAProxy for SSL termination
-sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOL
+cat <<'EOL' | sudo tee /etc/haproxy/haproxy.cfg > /dev/null
 frontend www-https
     bind *:443 ssl crt /etc/haproxy/certs/www.codesammy.tech.pem
     mode http
