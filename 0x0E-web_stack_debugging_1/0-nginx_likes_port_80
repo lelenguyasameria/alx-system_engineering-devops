@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get install -y net-tools nginx
 
 # Check if Nginx is running and restart if necessary
-if ! sudo service nginx status > /dev/null 2>&1; then
+if ! sudo service nginx status > /dev/null; then
     sudo service nginx restart
 fi
 
@@ -18,7 +18,4 @@ if sudo nginx -t; then
     # If no syntax errors, reload Nginx
     sudo service nginx reload
 fi
-
-# Ensure a new line at the end of the file
-echo >> /dev/null
 
