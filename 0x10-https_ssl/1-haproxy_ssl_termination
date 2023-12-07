@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Script: configure_haproxy_ssl.sh
+# Description: Configure HAProxy for SSL termination for www.codesammy.tech
+
+# Install Certbot
+sudo apt-get update
+sudo apt-get install certbot -y
+
+# Obtain SSL certificate using Certbot
+sudo certbot certonly --standalone -d www.codesammy.tech
+
+# Configure HAProxy for SSL termination
+sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOL
+frontend www-https
+    bind *:443 ssl crt /etc/haproxy/certs/www.codesammy.tech.pem
+    mode http
+    option forwardfor
+    reqadd X-Forwarded-Proto:\ https
+    acl is_holberton hdr(host) -i www.codesammy.tech
+    use_backend holberton-backend if is_holberton
+
+backend holberton-backend
+    mode http
+    server web-server 127.0.0.1:80 check
+EOL
+
+# Restart HAProxy
+sudo service haproxy restart
+
