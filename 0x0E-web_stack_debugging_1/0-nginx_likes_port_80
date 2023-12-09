@@ -22,3 +22,11 @@ fi
 # Create a simple index.html page
 echo "<html><body><h1>Hello, Nginx!</h1></body></html>" | sudo tee /var/www/html/index.html > /dev/null
 
+# Check if Nginx returns a web page and HTTP 200
+response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+if [ "$response_code" = "200" ]; then
+    echo "Nginx returned a web page with HTTP 200 on port 80."
+else
+    echo "Error: Nginx did not return the expected response. HTTP response code: $response_code"
+fi
+
