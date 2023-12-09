@@ -1,5 +1,13 @@
-#!/usr/bin/env bash \
-# Configures an Nginx server to listen on port 80. \
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
-service nginx start \
-kill "$(pgrep 'nginx' | head -1)"
+#!/usr/bin/env bash
+# Configures an Nginx server to listen on port 80.
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx start
+sleep 2
+response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+expected_value=200
+
+if [ "$response_code" = "$expected_value" ]; then
+    echo "Nginx returned a web page with HTTP $expected_value on port 80."
+else
+    echo "Error: Nginx did not return the expected response. HTTP response code: $response_code"
+fi
