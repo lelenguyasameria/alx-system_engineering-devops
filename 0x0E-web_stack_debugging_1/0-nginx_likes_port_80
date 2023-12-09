@@ -11,11 +11,14 @@ if ! sudo service nginx status > /dev/null; then
 fi
 
 # Update Nginx configuration to listen on port 80
-echo -e "user www-data;\nworker_processes auto;\npid /run/nginx.pid;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n    worker_connections 768;\n    # multi_accept on;\n}\n\nhttp {\n    server {\n        listen 80 default_server;\n        listen [::]:80 default_server;\n        server_name _;\n\n        # ... other configuration options ...\n\n        location / {\n            # ... other location settings ...\n        }\n    }\n\n    # ... other http settings ...\n}" | sudo tee /etc/nginx/nginx.conf > /dev/null
+echo -e "user www-data;\nworker_processes auto;\npid /run/nginx.pid;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n    worker_connections 768;\n    # multi_accept on;\n}\n\nhttp {\n    server {\n        listen 80 default_server;\n        listen [::]:80 default_server;\n        server_name _;\n\n        root /var/www/html;  # Set the document root directory\n        index index.html;     # Set the default index page\n\n        location / {\n            try_files \$uri \$uri/ =404;\n        }\n    }\n\n    # ... other http settings ...\n}" | sudo tee /etc/nginx/nginx.conf > /dev/null
 
 # Test Nginx configuration for syntax errors
 if sudo nginx -t; then
     # If no syntax errors, reload Nginx
     sudo service nginx reload
 fi
+
+# Create a simple index.html page
+echo "<html><body><h1>Hello, Nginx!</h1></body></html>" | sudo tee /var/www/html/index.html > /dev/null
 
