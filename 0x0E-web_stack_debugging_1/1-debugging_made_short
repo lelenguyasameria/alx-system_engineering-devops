@@ -2,12 +2,4 @@
 # Configures Nginx to listen on port 80.
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx start
-sleep 2
-response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
-expected_value=200
-if [ "$response_code" = "$expected_value" ]; then
-    echo "Nginx returned HTTP 200 on port 80."
-else
-    echo "Error: Nginx did not return the expected response."
-fi
-service nginx stop
+pgrep -q nginx && pkill nginx || true
