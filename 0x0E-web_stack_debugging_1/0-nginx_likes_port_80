@@ -2,6 +2,8 @@
 # Script: configure_nginx.sh
 # Description: Configures Nginx to listen on port 80 and ensures it's running on Ubuntu 20.04 LTS.
 
+set -x  # Enable debugging
+
 sudo apt-get update
 sudo apt-get install -y net-tools nginx
 
@@ -23,10 +25,12 @@ fi
 echo "<html><body><h1>Hello, Nginx!</h1></body></html>" | sudo tee /var/www/html/index.html > /dev/null
 
 # Check if Nginx returns a web page and HTTP 200
-response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
-if [ "$response_code" = "200" ]; then
+response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+if [[ "$response" == *"Hello, Nginx!"* && "$response" == *"<h1>"* && "$response" == *"</h1>"* ]]; then
     echo "Nginx returned a web page with HTTP 200 on port 80."
 else
-    echo "Error: Nginx did not return the expected response. HTTP response code: $response_code"
+    echo "Error: Nginx did not return the expected response."
 fi
+
+set +x  # Disable debugging
 

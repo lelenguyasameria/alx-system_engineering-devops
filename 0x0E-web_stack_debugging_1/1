@@ -1,13 +1,1 @@
-Hit:1 http://ke.archive.ubuntu.com/ubuntu focal InRelease
-Hit:2 http://ke.archive.ubuntu.com/ubuntu focal-updates InRelease
-Hit:3 http://ke.archive.ubuntu.com/ubuntu focal-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu focal-security InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-net-tools is already the newest version (1.60+git20180626.aebd88e-1ubuntu1).
-nginx is already the newest version (1.18.0-0ubuntu1.4).
-0 upgraded, 0 newly installed, 0 to remove and 255 not upgraded.
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
+bash: /0-nginx_likes_port_80: No such file or directory
