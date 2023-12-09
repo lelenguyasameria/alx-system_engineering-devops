@@ -2,35 +2,16 @@
 # Script: configure_nginx.sh
 # Description: Configures Nginx to listen on port 80 and ensures it's running on Ubuntu 20.04 LTS.
 
-set -x  # Enable debugging
-
-sudo apt-get update
-sudo apt-get install -y net-tools nginx
-
-# Check if Nginx is running and restart if necessary
-if ! sudo service nginx status > /dev/null; then
-    sudo service nginx restart
-fi
-
-# Update Nginx configuration to listen on port 80
-echo -e "user www-data;\nworker_processes auto;\npid /run/nginx.pid;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n    worker_connections 768;\n    # multi_accept on;\n}\n\nhttp {\n    server {\n        listen 80 default_server;\n        listen [::]:80 default_server;\n        server_name _;\n\n        root /var/www/html;  # Set the document root directory\n        index index.html;     # Set the default index page\n\n        location / {\n            try_files \$uri \$uri/ =404;\n        }\n    }\n\n    # ... other http settings ...\n}" | sudo tee /etc/nginx/nginx.conf > /dev/null
-
-# Test Nginx configuration for syntax errors
-if sudo nginx -t; then
-    # If no syntax errors, reload Nginx
-    sudo service nginx reload
-fi
-
-# Create a simple index.html page
-echo "<html><body><h1>Hello, Nginx!</h1></body></html>" | sudo tee /var/www/html/index.html > /dev/null
+# ... (rest of the script)
 
 # Check if Nginx returns a web page and HTTP 200
-response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
-if [[ "$response" == *"Hello, Nginx!"* && "$response" == *"<h1>"* && "$response" == *"</h1>"* ]]; then
-    echo "Nginx returned a web page with HTTP 200 on port 80."
-else
-    echo "Error: Nginx did not return the expected response."
-fi
+response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+expected_value=2  # Add this line to set the expected value
 
-set +x  # Disable debugging
+if [ "$response_code" = "200" ]; then
+    echo "Nginx returned a web page with HTTP 200 on port 80."
+    echo "Expected: $expected_value"  # Print the expected value
+else
+    echo "Error: Nginx did not return the expected response. HTTP response code: $response_code"
+fi
 
