@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# This script fixes the issue in the Docker container, making port 80 return a page with Hello Holberton.
+
+# Start the Docker container
+sudo docker start 91747d45c865
+
+# Access the Docker container
+sudo docker exec -it 91747d45c865 /bin/bash
+
+# Navigate to the Nginx document root
+cd /usr/share/nginx/html
+
+# Create or edit the index.html file with the desired content
+echo "Hello Holberton" > index.html
+
+# Exit the container
+exit
+
+# Restart the Nginx service inside the container
+sudo docker exec -it 91747d45c865 service nginx restart
+
