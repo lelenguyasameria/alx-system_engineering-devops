@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script configures UFW to redirect traffic from port 8080 to port 80.
+# It also allows SSH, HTTP, and HTTPS traffic.
+
 # Install UFW (if not already installed)
 sudo apt-get update
 sudo apt-get install ufw -y
