@@ -1,11 +1,21 @@
-echo "# Block all incoming traffic by default" > ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "sudo ufw default deny incoming" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "# Allow incoming traffic on specific ports" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "sudo ufw allow 22/tcp     # SSH" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "sudo ufw allow 443/tcp    # HTTPS SSL" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "sudo ufw allow 80/tcp     # HTTP" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "# Enable ufw" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
-echo "sudo ufw enable" >> ~/alx-system_engineering-devops/0x13-firewall/0-block_all_incoming_traffic_but
+#!/bin/bash
+
+# Install UFW
+sudo apt-get update
+sudo apt-get install ufw -y
+
+# Set default policies
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Allow specific ports
+sudo ufw allow 22
+sudo ufw allow 80
+sudo ufw allow 443
+
+# Enable UFW
+sudo ufw enable
+
+# Check UFW status
+sudo ufw status
 
